@@ -2,28 +2,27 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render,redirect
-from .models import TodoList, Category
+from .models import TodoList
 import datetime
-# Create your views here.
+from .form import todoForm
 
-def index(request): #the index view
-	todos = TodoList.objects.all() #quering all todos with the object manager
-	if request.method == "POST": #checking if the request method is a POST
-		if "taskAdd" in request.POST: #checking if there is a request to add a todo
-			title = request.POST["description"] #title
+def index(request):
+	todos = TodoList.objects.all() 
+	if request.method == 'POST':
+		print("post toh hai",request.user.id)
+		form = todoForm(request.POST)
+		if form.is_valid():
+			print("valid bhi hai")
+			instance=form.save(commit=False)
+			instance.owner=request.user
+			instance.save()
+			# form.save()
+			return redirect("/todo")
+		else:
+			print("--------------------------------")
+			print(form.errors)
 
-			owner = request.POST["nameOfUser"] 
-			date = str(request.POST["date"]) #date
-			# category = request.POST["category_select"] #category
-			content = title + " -- " + date + " " #+ category #content
-			Todo = TodoList(title=title, content=content, due_date=date, owner=owner)
-			Todo.save() #saving the todo 
-			return redirect("/todo") #reloading the page
-		
-		if "taskDelete" in request.POST: #checking if there is a request to delete a todo
-			checkedlist = request.POST["checkedbox"] #checked todos to be deleted
-			for todo_id in checkedlist:
-				todo = TodoList.objects.get(id=int(todo_id)) #getting todo id
-				todo.delete() #deleting todo
 
-	return render(request, "index.html", {"todos": todos})
+	form = todoForm()
+	return render(request, 'form.html', {'form':form})
+

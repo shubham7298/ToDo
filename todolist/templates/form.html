@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>tOdO</title>
+  {% load static %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">  -->
+</head>
+
+<body>
+<div django-app="todo" style="margin-top: 5rem">  
+		<!-- {{ form.as_p }}	 -->
+<!--  -->
+<div class="container">
+	<div class="content">
+		<h1>ToDo Application</h1>
+        <p class="tagline">a Django app</p>
+			<form method="post">
+		{% csrf_token %}
+		{{ form.errors }}
+		{{ form.non_field_errors }}
+		<div class="inputContainer">
+		    {{ form.title.errors }}
+		    <label for="{{ form.title.id_for_label }}">Description</label>
+		    {{ form.title }}
+		</div>
+		<div class="fieldWrapper">
+		    {{ form.content.errors }}
+		    <label for="{{ form.content.id_for_label }}">Your content:</label>
+		    {{ form.content }}
+		</div>
+		<div class="fieldWrapper">
+		    {{ form.category.errors }}
+		    <label for="{{ form.category.id_for_label }}">category:</label>
+		    {{ form.category }}
+		</div>
+		<div class="inputContainer half last right" type="date">
+		    {{ form.due_date.errors }}
+		    <label for="{{ form.due_date.id_for_label }}">Due Date:</label>
+		    {{ form.due_date }}
+		</div>
+		<button type="submit">submit</button>
+
+		<ul  class="taskList">
+
+            {% for todo in todos %} 
+            <p>hello</p>
+               <!-- <li class="taskItem">
+                    <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
+                    <label for="{{ todo.id }}"><span class="complete-">{{ todo.title }}</span></label>
+                    <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.created }} - {{ todo.due_date }}</strong>
+                </li>  -->
+           
+            {% endfor %}
+            
+            
+            </ul><!-- taskList -->
+            	</form>
+	</div>
+</div>
+<!--  -->
+		
+
+
+</body>
+</html>
