@@ -22,4 +22,5 @@ urlpatterns = [
     # path('accounts/', include('accounts.urls')),
     path('', include('accounts.urls')),
     path('todo', index, name='TodoList'),
+    # path('todo', getUserTodo.as_view(), name='TodoList'),
 ]
