@@ -19,8 +19,8 @@
 		<h1>ToDo Application</h1>
         <p class="tagline">a Django app</p>
         <nav>
-        Hello {{ user.username|upper }}
-        <a style="float:right;" href="logout/">Logout</a>
+        Hey {{ user.username|upper }}
+        <a style="float:right;" href="/todo/0">Back</a>
     	</nav>
 			<form method="post">
 		{% csrf_token %}
@@ -67,7 +67,7 @@
             {% if request.get_full_path|slice:"6:" == todo.category|slugify or request.get_full_path|slice:"6:" == '0'%}
                 <li class="taskItem">
                     <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
-                    <label for="{{ todo.id }}"><span class="complete-"><a href="edit/{{ todo.id }}">{{ todo.title }}</a></span></label>
+                    <label for="{{ todo.id }}"><span class="complete-">{{ todo.title }}</span></label>
                      <span class="category-{{ todo.category }}" id="cat-{{ todo.category }}"></span>
                     <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.created }} - {{ todo.due_date }}</strong>
                 </li>  

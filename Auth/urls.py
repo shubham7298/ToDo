@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-from todolist.views import index
+from todolist.views import index, EditView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('accounts/', include('accounts.urls')),
     path('', include('accounts.urls')),
     # path('todo/', index, name='TodoList'),
-    url(r'todo/[0-3]$', index, name='TodoList'),    
+    url(r'todo/[0-3]$', index, name='TodoList'),   
+    path('todo/edit/<int:pk>',EditView, name='edit'), 
 ]
