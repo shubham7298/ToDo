@@ -29,7 +29,7 @@ pipenv install -r requirements.txt
 pipenv shell
 ```
 
-##Run
+## Run
  ------------
  To run django application.
 ```
