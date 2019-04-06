@@ -24,12 +24,13 @@
 		{{ form.non_field_errors }}
 		<div class="inputContainer">
 		    {{ form.title.errors }}
-		    Description:
+		    Title:
 		    {{ form.title }}
 		</div>
 		<div class="inputContainer">
 		    {{ form.content.errors }}
-		    <label for="{{ form.content.id_for_label }}">Your content:</label>
+		    <label for="{{ form.content.id_for_label }}"></label>
+		    Desc.
 		    {{ form.content }}
 		</div>
 		<div class="inputContainer half last right">
@@ -47,23 +48,27 @@
 		<button class="taskDelete" name="taskDelete" formnovalidate="" type="submit" onclick="$('input#sublist').click();"><i class="fa fa-trash-o icon"></i>Delete Tasks</button>
 	</div>
 
-		
-			<section class="inputContainer half last right">Filter by:
-			<select name="cars">
-    <option value="volvo">Not Started</option>
-    <option value="saab">Working</option>
-    <option value="fiat">Done</option>
-  </select>
-   </section>
-  <button class="taskAdd" type="submit">Submit</button>
+	<div class="btn-group row">
+  <button><a href="/todo/0">All</button>
+  <button><a href="/todo/1">Not started</a></button>
+  <button><a href="/todo/2">Working</a></button>
+  <button><a href="/todo/3">Done</a></button>	
+</div>	
+	
  <ul class="taskList">
-            {% for todo in todos %} 
+{% load util %}
+            {% for todo in todos %} 	
             {% if todo.owner_id == user.id %}
+
+            {% if request.get_full_path|slice:"6:" == todo.category|slugify or request.get_full_path|slice:"6:" == '0'%}
                 <li class="taskItem">
                     <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
                     <label for="{{ todo.id }}"><span class="complete-">{{ todo.title }}</span></label>
+                     <span class="category-{{ todo.category }}" id="cat-{{ todo.category }}"></span>
                     <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.created }} - {{ todo.due_date }}</strong>
                 </li>  
+
+           {% endif %}
            {% endif %}
             {% endfor %}
             
@@ -75,11 +80,10 @@
 <!--  -->
 	</div>	
 
-
 </body>
 </html>
 
 <!--
-<label for="{{ form.title.id_for_label }}">Description</label>
+
 
 	-->

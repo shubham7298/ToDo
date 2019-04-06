@@ -9,7 +9,7 @@ class TodoList(models.Model): #Todolist able name that inherits models.Model
 	# owner = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 	owner = models.ForeignKey(User, on_delete=models.CASCADE)
 	title = models.CharField(max_length=250) # a varchar
-	content = models.TextField(blank=True) # a text field 
+	content = models.CharField(max_length=1000,blank=True) # a text field 
 	category = models.IntegerField(choices=(
     (1, ("Not Started")),(2, ("In Progress")),(3, ("Done"))
 ), default=1)

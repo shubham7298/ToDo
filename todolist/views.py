@@ -9,6 +9,7 @@ from .form import todoForm
 
 def index(request):
 	todos = TodoList.objects.all() 
+	print(request.get_full_path())
 	if request.method == 'POST':
 		print("post toh hai",request.user.id)
 		form = todoForm(request.POST)
@@ -18,7 +19,7 @@ def index(request):
 			instance.owner=request.user
 			instance.save()
 			# form.save()
-			return redirect("/todo")
+			return redirect("/todo/0")
 		else:
 			print("--------------------------------")
 			print(form.errors)

@@ -5,7 +5,7 @@
 	{% if user.is_authenticated %}
     <p>hello</p>
     <p>welcome {{ user.username }}</p>
-    <p>Your <a href="/todo">Tasks</a>.</p>
+    <p>Your <a href="/todo/0">Tasks</a>.</p>
     <p><a href="/logout">Logout</a></p>
     {% else %}
     <p><a href="/login">Login</a></p>
