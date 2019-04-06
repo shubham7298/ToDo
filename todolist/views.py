@@ -4,17 +4,18 @@ from __future__ import unicode_literals
 from django.shortcuts import render,redirect
 from .models import TodoList
 import datetime
+from django.http import HttpResponse
 from django.views import generic
 from .form import todoForm
 
 def index(request):
 	todos = TodoList.objects.all() 
-	print(request.get_full_path())
+	if request.user.id == None:
+		# return HttpResponse("Please Login first to view your Todos.")
+		return redirect("/")
 	if request.method == 'POST':
-		print("post toh hai",request.user.id)
 		form = todoForm(request.POST)
 		if form.is_valid():
-			print("valid bhi hai")
 			instance=form.save(commit=False)
 			instance.owner=request.user
 			instance.save()
@@ -36,13 +37,17 @@ def index(request):
 
 def EditView(request, pk, *args, **kwargs):
 	todos = TodoList.objects.all() 
-	edit_this = TodoList.objects.get(pk=pk)
+	if request.user.id == None:
+		return redirect("/")
+		# return HttpResponse("Please Login first to edit your Todos.")
+	try:
+		edit_this = TodoList.objects.get(pk=pk)
+	except:
+		return HttpResponse("No such todo exists !")
 	form = todoForm( instance=edit_this)
 	if request.method == 'POST':
-		print("ThATS A HUGE HIT ~~~!!!")
 		form = todoForm(request.POST)
 		if form.is_valid():
-			print("valid bhi hai")
 			instance=form.save(commit=False)
 			instance.owner=request.user
 			instance.save()

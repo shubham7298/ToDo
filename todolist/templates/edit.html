@@ -18,6 +18,10 @@
 		
 		<h1>ToDo Application</h1>
         <p class="tagline">a Django app</p>
+        <nav>
+        Hey {{ user.username|upper }}
+        <a style="float:right;" href="/todo/0">Back</a>
+    	</nav>
 			<form method="post">
 		{% csrf_token %}
 		{{ form.errors }}
