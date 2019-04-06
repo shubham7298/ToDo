@@ -34,11 +34,18 @@ def index(request):
 	form = todoForm()
 	return render(request, 'form.html', {"todos": todos,'form':form})
 
-# class getUserTodo(generic.DetailView):
-# 	template_name = 'todolist/form.html'
-# 	model = TodoList
-
-# 	def get_queryset(self):
-# 		return TodoList.objects.all() 
-
-
+def EditView(request, pk, *args, **kwargs):
+	todos = TodoList.objects.all() 
+	edit_this = TodoList.objects.get(pk=pk)
+	form = todoForm( instance=edit_this)
+	if request.method == 'POST':
+		print("ThATS A HUGE HIT ~~~!!!")
+		form = todoForm(request.POST)
+		if form.is_valid():
+			print("valid bhi hai")
+			instance=form.save(commit=False)
+			instance.owner=request.user
+			instance.save()
+			edit_this.delete()
+			return redirect("/todo/0")
+	return render(request, 'edit.html', {"todos": todos,'form':form})

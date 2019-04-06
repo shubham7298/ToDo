@@ -4,9 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-class TodoList(models.Model): #Todolist able name that inherits models.Model
-	# owner = models.CharField(max_length=250, default="guest")
-	# owner = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+class TodoList(models.Model): 
 	owner = models.ForeignKey(User, on_delete=models.CASCADE)
 	title = models.CharField(max_length=250) # a varchar
 	content = models.CharField(max_length=1000,blank=True) # a text field 

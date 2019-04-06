@@ -63,7 +63,7 @@
             {% if request.get_full_path|slice:"6:" == todo.category|slugify or request.get_full_path|slice:"6:" == '0'%}
                 <li class="taskItem">
                     <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
-                    <label for="{{ todo.id }}"><span class="complete-"><a href="edit/{{ todo.id }}">{{ todo.title }}</a></span></label>
+                    <label for="{{ todo.id }}"><span class="complete-">{{ todo.title }}</span></label>
                      <span class="category-{{ todo.category }}" id="cat-{{ todo.category }}"></span>
                     <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.created }} - {{ todo.due_date }}</strong>
                 </li>  
